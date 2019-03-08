@@ -10,15 +10,32 @@
 import React, {Component} from 'react';
 import { Text, View, Input, Button} from "native-base";
 
+
 export default class App extends Component {
+
+  constructor(props){
+    super(props);
+    this.state={
+      length:0,
+      width:0,
+      area:0,
+    }
+  }
+
+  calc(){
+    const area = this.state.length * this.state.width;
+    this.setState({area: area});
+  }
+
   render() {
     return (
       <View style={styles.container}>
+        <Text testID={"finalValue"} style={styles.label}>{this.state.area}</Text>
          <Text style={styles.label} testID={'rectangleLengthText'}>Length</Text>
-         <Input testID={"rectangleLengthInput"} />
+         <Input testID={"rectangleLengthInput"}  onChangeText={length => this.setState({length})}/>
          <Text style={styles.label} testID={'rectangleWidthText'}>Width</Text>
-         <Input testID={"rectangleWidthInput"}/>
-        <Button testID={"rectangleAreaButton"}>
+         <Input testID={"rectangleWidthInput"} onChangeText={width => this.setState({width})}/>
+        <Button testID={"rectangleAreaButton"} onPress={() => this.calc()}>
         <Text>Calculate</Text>
       </Button>
       </View>
